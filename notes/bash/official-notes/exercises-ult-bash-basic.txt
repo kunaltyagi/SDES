@@ -1,0 +1,88 @@
+0. Try all the commands that are on the slides. 
+1. Try changing your "bash prompt" using the shell variable PS1 by
+    $ export PS1=' $ '
+2. In bash, lookup how to have more useful info within the prompt (like time,
+   current-directory, username, servername)
+3. Change from one directory to another using .. and . and using absolute path.
+4. Try touching an existing file and see if that file's timestamp changes.
+    (See timestamp using "ls -l")
+5. When using rm, to see which option is more important: -i and -f (one is 
+    interactive, other is force) by aliasing rm to rm -i, and then using -f
+    option. Try viceversa (aliasing to rm -f and then using -i option).
+    Be sure to be in a directory without important contents.
+
+6. Use both rmdir and rm -r for a directory with and w/o contents.
+7. Try finding option of cp that RETAINS the original file's timestamp.
+   Try using cp without this option. Find timestamp differences.
+
+8. Try command "which ls" or "which any-command", and "which which".
+9. Try changing permissions of some file and try overwriting it, or editing it.
+   (Simplest way to edit it is to *append* to that file by using ">>". For example:
+      $ ls > new_file # Hash is a comment, > means create-and-write (or overwrite-if-exists).
+      $ cat new_file # to see the contents. (Or try less new_file)
+      $ ls >> new_file # this is to *append* to the bottom.
+   (Whatever typed after # is a comment: this is BASH syntax. No need to type for you.)
+
+10. See what is "chmod 644 filename.txt". (optional)
+11. Try less filename.txt (for a file that is there.)
+    Try less and also more for images, pdf-files, ps files.
+
+12. Try wc filename.txt, and also wc -l filename.txt, and then wc -l file1.txt file2.txt file3.txt
+     (for existing files!)
+13. Use head and/or tail for all lines EXCEPT first 10 lines, for last 10 lines,
+    just first 10 lines, etc., for 20th to 30th lines (including both 20 and 30).
+
+14. Try alias and unalias commands.
+15. Try copying a file using cp, but also RETAINING the timestamp of the original file.
+
+16. Look up "sed one liners" on google and try a few of them (like
+    double-spacing a file or removing out empty lines) using sed.
+
+17. Make two csv files (with delimiter : ) with headers respectively:
+      Sr.Num: RollNum: Name: Hostel: Dept   (for file1.csv)
+      Sr.Num: RollNum: ExtraCol: Name: Hostel: Dept   (for file2.csv)
+    and concatenate them but by removing out the ExtraCol of file2.csv, and
+    also without repeating the header again. No temporary file creation
+    allowed
+
+18. Thanks to Ashwith Rego, try
+      head -n1 sample.csv && tail -n+2 sample.csv|sort -t, -k4n
+    for not mixing the header line into the sorting work.
+    Look up && on google by typing "bash &&"
+
+----------- ULT content ends here. Bash content exercises begin below.------
+
+1. Save a spreadsheet as a csv file (just the active sheet). Just "Save as" and choose csv.
+    from a google spreadsheet, use "Export as" and csv file. Choose different delimiters
+    if asked (maybe semicolon ";"  or colon ":" ) Then try cut, paste related commands from the slides.
+
+2. For more info about pipe ( | ), try apropos pipe first (and then see "tee" and see "popen".)
+3. Try 20th to 30th line of a file using pipes ( | ).
+4. pipes go well with sed. Search on internet for "sed one liners". Use some sed one-liners
+    together with pipe to perform some operations on csv files.
+5. For a file called new_command.sh file, look up difference between 
+     $ ./new_command.sh
+           and 
+     $ . new_command.sh
+           and
+     $ source new_command.sh
+    (with new_command.sh having some simple commands like "echo hello", sleep, etc.
+
+6. Try "which ls", "which which", "file full-path-of-ls-command", "file $(which which)" and
+      also "file `which ls`" (for exercise 21, execute whatever is amidst double quotes ".
+        Also, note open quote (above tab key)).
+
+7. make new variable names by (for example). 
+       $ variab="New variable"
+    and see its value by 
+       $ echo $variab
+    and also try
+       $ echo $var<TAB> (to see completion)
+    Try $ echo $<TAB> (to see all variables, try double TAB for seeing ambiguities))
+
+8. Try the exercises about mp3 files (renaming, removing spaces, etc.)
+
+9. Amongst various txt files in a directory, some having read permissions,
+    some not having, concatenate all of them into a new outputfile, and store the
+    errors into a separate errorfile (and denied permissions, etc.)
+

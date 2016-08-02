@@ -1,0 +1,2 @@
+This is a dummy sentence. The aim is to convert this into words and
+then search the words in a dictionanryy.
