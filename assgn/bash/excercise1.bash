@@ -1,10 +1,17 @@
-#! /usr/env/bash
+#! /usr/bin/env bash
 
 FILE1=${1}
 FILE2=${2}
 output=${3:-final-output.csv}
+stats=${4:-statistics.txt}
 
-sum_data=
+# generate statistics
+if [ -e ${stats} ]; then
+    rm ${stats}
+fi
+for file in $FILE{1,2}; do
+    echo 'Lines in '${file}': '$((`wc -l ${file} | cut -d' ' -f1` - 1)) >> ${stats}
+done
 
 # append partB marks and total marks to each line of partA
 while read line;
