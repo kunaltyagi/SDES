@@ -10,6 +10,9 @@ TEMPLATE_STAT=${7:-statistics.txt}
 MAX_MARKS=${8:-10}
 
 for file in *.sh; do
+    if [ $0 == ${file} ]; then
+        continue
+    fi
     name=${file%.*}
     if [ ! -d ${name} ]; then
         mkdir ${name}
@@ -30,7 +33,7 @@ for file in *.sh; do
 
     # calculate marks, assume each error costs 1 mark
     marks=$((MAX_MARKS - number + 3 - errors))  # 3 files are OK
-    echo ${marks}
+    # echo ${marks}
 
     # for testing purpose only. In production, remove any file
     # called testing from the current directory
