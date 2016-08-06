@@ -39,9 +39,9 @@ sorted=`echo "${sum_data}" | tail -n+2 | sort -n -k5`
 no_tie=`echo "${sorted}" | uniq -f4 -u | sed 's/$/, No/g'`
 tie=`echo "${sorted}" | uniq -f4 -D | sed 's/$/, Yes/g'`
 
-# sort based on roll number
+# sort based on decreasing total marks
 sorted=${no_tie}$'\n'${tie}
-sorted=`echo "${sorted}" | sort -n -k1`
+sorted=`echo "${sorted}" | sort -n -k5 -r`
 
 # append sorted data to header line
 output_data=`echo "${sum_data}" | head -n1`
