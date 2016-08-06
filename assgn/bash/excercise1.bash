@@ -19,7 +19,7 @@ do
     rollnum=`echo ${line} | cut -d, -f1`
     marks_a=`echo ${line} | cut -d, -f2`
     if [ `echo ${line} | grep -c 'RollNum'` -eq 1 ]; then
-        line='RollNum, part A, Name, part B, Total, IsTied'
+        line='Sr.Num., RollNum, part A, Name, part B, Total, IsTied'
         sum_data=${line}
         continue
     fi
@@ -41,11 +41,11 @@ tie=`echo "${sorted}" | uniq -f4 -D | sed 's/$/, Yes/g'`
 
 # sort based on decreasing total marks
 sorted=${no_tie}$'\n'${tie}
-sorted=`echo "${sorted}" | sort -n -k5 -r`
+sorted=`echo "${sorted}" | sort -n -k5 -r | awk -F, '{$1=++i FS $1;}1' OFS=,`
 
 # append sorted data to header line
 output_data=`echo "${sum_data}" | head -n1`
 output_data=${output_data}$'\n'${sorted}
 
 # reorder the columns, beautify them for final output
-echo "${output_data}" | awk -F, '{print $1", "$3", "$2", "$4", "$5", "$6}' | tr -s ' ' > ${output}
+echo "${output_data}" | awk -F, '{print $1", "$2", "$4", "$3", "$5", "$6", "$7}' | tr -s ' ' > ${output}
