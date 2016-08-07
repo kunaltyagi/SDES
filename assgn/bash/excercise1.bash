@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
-FILE1=${1:-sample-partA.csv}
-FILE2=${2:-sample-partB.csv}
+FILE1=${1:-partA.csv}
+FILE2=${2:-partB.csv}
 output=${3:-final-output.csv}
 stats=${4:-statistics.txt}
 

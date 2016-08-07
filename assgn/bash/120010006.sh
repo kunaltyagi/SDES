@@ -1,1 +1,0 @@
-/home/kunal/Documents/sdes/assgn/bash/excercise1.bash

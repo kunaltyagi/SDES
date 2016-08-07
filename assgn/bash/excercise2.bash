@@ -1,8 +1,8 @@
 #! /usr/bin/env bash
 
-RESULT=${1:-compiled-output.csv}
-PART_A=${2:-sample-partA.csv}
-PART_B=${3:-sample-partB.csv}
+RESULT=${1:-rollnum-marks.csv}
+PART_A=${2:-partA.csv}
+PART_B=${3:-partB.csv}
 OUTPUT=${4:-final-output.csv}
 STATS=${5:-statistics.txt}
 TEMPLATE_OUT=${6:-final-output.csv}
@@ -28,14 +28,19 @@ for file in *.sh; do
 
     # count differences
     errors_out=`diff -w ${TEMPLATE_OUT} ${output} | grep -c '>'`
-    errors_stat=`diff -w ${TEMPLATE_STAT} ${stats} | grep -c '>'`
+    # statistics file not to be checked
+    errors_stat=0 #`diff -w ${TEMPLATE_STAT} ${stats} | grep -c '>'`
     errors=$((errors_out + errors_stat))
 
-    # count files created
-    number=`ls -1 ${name} | wc -l`
+    if [ ${errors} -eq 0 ]; then
+        # count files created
+        number=`ls -1 ${name} | wc -l`
 
-    # calculate marks, assume each error costs 1 mark
-    marks=$((MAX_MARKS - number + 3 - errors))  # 3 files are OK
+        # calculate marks, assume each file costs 1 mark
+        marks=$((MAX_MARKS - number + 3))  # 3 files are OK
+    else
+        marks=0
+    fi
 
     # save output
     echo ${name},${marks} >> ${RESULT}
