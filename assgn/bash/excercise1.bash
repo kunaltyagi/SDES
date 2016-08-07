@@ -10,7 +10,7 @@ if [ -e ${stats} ]; then
     rm ${stats}
 fi
 for file in $FILE{1,2}; do
-    echo 'Lines in '${file}': '$((`wc -l ${file} | cut -d' ' -f1` - 1)) >> ${stats}
+    echo 'Lines in '${file}': '$((`wc -l ${file} | cut -d' ' -f1` - 0)) >> ${stats}
 done
 
 # append partB marks and total marks to each line of partA
@@ -34,16 +34,23 @@ do
     sum_data=${sum_data}$'\n'${line}
 done < ${FILE1}
 
+# check if there is no header
+if [ `echo "${sum_data}" | head -n1 | wc -w` -eq 0 ]; then
+    line='Sr.Num., RollNum, part A, part B, Total, IsTied'
+    line=${line}$'\n'`echo "${sum_data}" | tail -n+2`
+    sum_data=`echo "${line}"`
+fi
+
 # sort the non-header lines and find ties and non-tied scores
 sorted=`echo "${sum_data}" | tail -n+2 | sort -n -k4`
 no_tie=`echo "${sorted}" | uniq -f3 -u | sed 's/$/, No/g'`
 tie=`echo "${sorted}" | uniq -f3 -D | sed 's/$/, Yes/g'`
 
 # sort based on decreasing total marks
-if [ `echo "${no_tie}" | wc -l` -lt 2 ]; then
+if [ `echo "${no_tie}" | wc -w` -eq 0 ]; then
     sorted=${tie}
 else
-    if [ `echo "${tie}" | wc -l` -lt 2 ]; then
+    if [ `echo "${tie}" | wc -w` -eq 0 ]; then
         sorted=${no_tie}
     else
         sorted=${no_tie}$'\n'${tie}
