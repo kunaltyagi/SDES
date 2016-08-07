@@ -23,7 +23,7 @@ do
         sum_data=${line}
         continue
     fi
-    if [ ${marks_a} -gt 20 ]; then
+    if [ ${marks_a} -ge 20 ]; then
         line=${line}', '`grep ${rollnum} ${FILE2} | cut -d, -f2`
         # calculate sum
         marks_b=`echo ${line} | cut -d, -f3`
