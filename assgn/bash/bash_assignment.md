@@ -58,7 +58,10 @@ A class has amore than 50 students. Each student (with a unique rollnumber) subm
 
 *   makes ONE csv file for all rollnumbers with columns
 
-    rollnum-header, mark-header rollnum, mark rollnum, mark rollnum, mark
+    rollnum-header, mark-header 
+    rollnum, mark 
+    rollnum, mark 
+    rollnum, mark
 
 Your script will look for all sh files in that directory and run on each sh file (with rollnumber as the directory, moving the sh file into that directory.
 
