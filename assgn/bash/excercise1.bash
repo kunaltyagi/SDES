@@ -19,14 +19,14 @@ do
     rollnum=`echo ${line} | cut -d, -f1`
     marks_a=`echo ${line} | cut -d, -f2`
     if [ `echo ${line} | grep -c 'RollNum'` -eq 1 ]; then
-        line='Sr.Num., RollNum, part A, Name, part B, Total, IsTied'
+        line='Sr.Num., RollNum, part A, part B, Total, IsTied'
         sum_data=${line}
         continue
     fi
-    if [ `echo ${line} | cut -d, -f2` -gt 20 ]; then
+    if [ ${marks_a} -gt 20 ]; then
         line=${line}', '`grep ${rollnum} ${FILE2} | cut -d, -f2`
         # calculate sum
-        marks_b=`echo ${line} | cut -d, -f4`
+        marks_b=`echo ${line} | cut -d, -f3`
         line=${line}', '$((marks_a + marks_b))
     else
         line=${line}', NC, '${marks_a}
@@ -35,17 +35,26 @@ do
 done < ${FILE1}
 
 # sort the non-header lines and find ties and non-tied scores
-sorted=`echo "${sum_data}" | tail -n+2 | sort -n -k5`
-no_tie=`echo "${sorted}" | uniq -f4 -u | sed 's/$/, No/g'`
-tie=`echo "${sorted}" | uniq -f4 -D | sed 's/$/, Yes/g'`
+sorted=`echo "${sum_data}" | tail -n+2 | sort -n -k4`
+no_tie=`echo "${sorted}" | uniq -f3 -u | sed 's/$/, No/g'`
+tie=`echo "${sorted}" | uniq -f3 -D | sed 's/$/, Yes/g'`
 
 # sort based on decreasing total marks
-sorted=${no_tie}$'\n'${tie}
-sorted=`echo "${sorted}" | sort -n -k5 -r | awk -F, '{$1=++i FS $1;}1' OFS=,`
+if [ `echo "${no_tie}" | wc -l` -lt 2 ]; then
+    sorted=${tie}
+else
+    if [ `echo "${tie}" | wc -l` -lt 2 ]; then
+        sorted=${no_tie}
+    else
+        sorted=${no_tie}$'\n'${tie}
+    fi
+fi
+sorted=`echo "${sorted}" | sort -n -k4 -r | awk -F, '{$1=++i FS $1;}1' OFS=,`
 
 # append sorted data to header line
 output_data=`echo "${sum_data}" | head -n1`
 output_data=${output_data}$'\n'${sorted}
 
 # reorder the columns, beautify them for final output
-echo "${output_data}" | awk -F, '{print $1", "$2", "$4", "$3", "$5", "$6", "$7}' | tr -s ' ' > ${output}
+echo "${output_data}" | tr -s ' ' | sed 's/, /,/g' > ${output}
+# awk -F, '{print $1","$2","$3","$4","$5","$6}' |
