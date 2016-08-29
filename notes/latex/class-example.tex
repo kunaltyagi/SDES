@@ -1,0 +1,131 @@
+\documentclass[12pt,a4paper]{report}
+
+
+% Preamble
+
+\usepackage{graphics}
+\usepackage{graphicx}
+
+\usepackage{listings}
+\usepackage{color}
+
+\begin{document}
+
+\tableofcontents
+
+\chapter{First chapter}
+
+   
+
+\vspace*{2cm}
+
+\begin{tabular}{|l|c|p{4cm}|}
+\hline  \\[-3mm]
+% \vphantom{$5^{p^{7^{4_6}}}$} 
+Header row's first column & 
+Header row's second column & 
+Header row's third column \\
+\hline \hline
+First column & second column & third column \\
+First column second row & second column & third column \\
+First column & second column & third column \\ \hline
+\end{tabular}
+
+
+\begin{figure}[h] 
+\includegraphics[angle=45, width=6cm]{test-image.png}
+\caption{This is our figure.} \label{ourfigure}
+\end{figure}
+
+Things are explained in the figure (Figure \ref{ourfigure}
+
+\lstset{language=Python, keywordstyle=\color{red}}
+\begin{lstlisting}
+
+for i = 1:5
+   print i
+
+\end{lstlisting}
+
+\vspace{5cm}
+
+\verb*&This on  e wi ll come verbatim&
+
+\noindent
+This one will not come verbatim
+
+
+
+``For double quotes."
+
+For {\em emphasis}
+
+Another way
+For \emph{emphasis}
+
+For bold \textbf{bold}
+
+Or similarly {\bf this one is bold}
+
+\begin{flushright}
+This part will be flushed right
+\end{flushright}
+
+
+
+\begin{enumerate}
+\item This part will be centered
+
+\item This part also will be centered\footnote{Text for footnote
+\label{footnote-my-name}. No section labels here! }
+
+\item This part also \texttt{will be centered}
+\item More items. This was explained in footnote number 
+\ref{footnote-my-name} 
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{New section added section}
+
+The first section got re-introduced now.
+
+\section{First section} \label{our:name:section1}
+
+Here comes the content.
+IT was indeed discussed right here.
+
+Here comes the content.
+
+\section*{SEcond section}
+
+This was already discussed in Section \ref{our:name:section1}
+
+There are special symbols:
+
+\$ \% \& \# \\ does not give a backslash
+
+\section{Third section}
+
+\textbackslash ~ gives
+
+$ math mode$ 
+
+%  means comment
+
+
+$\backslash$ gives
+
+\end{document}
+
+This is ignored by latex
